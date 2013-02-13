@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <link rel="stylesheet" href="webres/styles/rootstyles.css" type="text/css" title="Root CI" media="screen" />
+        <title>
+            
+            <ui:insert name="pagetitle">Default Page Title</ui:insert>
+            
+        </title>
+    </h:head>
+    <h:body>
+        <div id="root_header">
+            <div class="floatleft">
+                <h:graphicImage value="webres/img/icon.png"/>
+            </div>
+            <div id="root_title">
+                <h:outputText value="Sample Application"/>
+            </div>
+        </div>
+
+        <div id="root_body">
+            
+            <f:view contentType="text/html">        
+                
+                <ui:insert name="body" />         
+                
+            </f:view>
+        </div>
+        
+        <div id="root_footer">
+            <hr/>
+            <a href="/imprint.xhtml">Imprint</a>
+        </div>
+    </h:body>
+</html>
+
