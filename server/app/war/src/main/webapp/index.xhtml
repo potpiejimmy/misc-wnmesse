@@ -17,6 +17,15 @@
 	            <p:commandButton value="Create application" action="#{customizeAppBean.createApp}" ajax="false"/>
 	        </h:form>
 
+			<h:panelGroup rendered="#{customizeAppBean.outputFile ne null}">
+				<h3>QR code on-the-fly</h3>  
+				<p:graphicImage value="#{customizeAppBean.qrcode}"/> 
+	
+				<h:outputLink value="#{customizeAppBean.outputFile}">
+					<h:outputText value="#{customizeAppBean.outputFile}"/>
+				</h:outputLink>
+			</h:panelGroup>
+			
         </ui:define>
         
     </ui:composition>

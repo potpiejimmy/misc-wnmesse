@@ -5,5 +5,5 @@ import javax.ejb.Local;
 @Local
 public interface AppCreatorEJBLocal {
 
-	public void createApplication();
+	public String createApplication();
 }
