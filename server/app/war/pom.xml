@@ -47,6 +47,12 @@
 		    <type>ejb</type>
 		   <scope>provided</scope>
 		</dependency>
+		<!-- ZXing 2.1 -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>2.1</version>
+		</dependency>
     </dependencies>
 
     <build>
