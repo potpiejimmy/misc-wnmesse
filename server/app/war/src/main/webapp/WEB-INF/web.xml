@@ -13,6 +13,14 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+	<filter>
+	    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+	    <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+	    <servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
     <session-config>
         <session-timeout>
             30
@@ -25,7 +33,11 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
-    <!--security-constraint>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>glass-x</param-value>
+	</context-param>
+	<!--security-constraint>
         <web-resource-collection>
             <web-resource-name>Resources</web-resource-name>
             <url-pattern>/res/sample/*</url-pattern>
