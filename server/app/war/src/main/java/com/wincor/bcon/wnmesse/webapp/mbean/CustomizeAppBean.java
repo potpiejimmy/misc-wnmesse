@@ -25,6 +25,8 @@ import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
 import com.wincor.bcon.wnmesse.server.ejb.AppCreatorEJBLocal;
 import com.wincor.bcon.wnmesse.server.util.Utils;
+import com.wincor.bcon.wnmesse.server.vo.AppCreationResult;
+import com.wincor.bcon.wnmesse.server.vo.AppCustomization;
 
 /**
  * This is a sample JSF managed bean.
@@ -45,25 +47,24 @@ public class CustomizeAppBean implements Serializable {
 	@EJB
 	private AppCreatorEJBLocal creatorEJB;
 	
-	private String outputFile = null;
+	private AppCreationResult creationResult = null;
 	
-	private byte[] img = null;
-	private String color = null;
+	private AppCustomization customization = new AppCustomization();
 
 	/**
 	 * Called from JSF if save button is pressed.
 	 */
 	public void createApp() {
-		this.outputFile = creatorEJB.createApplication();
+		this.creationResult = creatorEJB.createApplication(this.customization);
 	}
 
-	public String getOutputFile() {
-		return this.outputFile;
+	public AppCreationResult getCreationResult() {
+		return this.creationResult;
 	}
 	
 	public StreamedContent getQrcode() throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		generateQRCodeImage(baos, this.outputFile, 240, 240);
+		generateQRCodeImage(baos, this.creationResult.getLink(), 240, 240);
         return new DefaultStreamedContent(new ByteArrayInputStream(baos.toByteArray()), "image/png");
     }  
 	
@@ -82,26 +83,22 @@ public class CustomizeAppBean implements Serializable {
         Utils.writeThrough(in, baos);
         in.close();
         baos.close();
-        this.img = Utils.getJPEGDownSizedImage(baos.toByteArray(), MAX_IMAGE_SIZE, MAX_IMAGE_SIZE, 1.0f);
+        this.customization.setImg(Utils.getJPEGDownSizedImage(baos.toByteArray(), MAX_IMAGE_SIZE, MAX_IMAGE_SIZE, 1.0f));
         } catch (Exception ex) {
         	ex.printStackTrace();
         }
     }  
     
 	public boolean isImgAvailable() {
-		return this.img != null;
+		return this.customization.getImg() != null;
 	}
 	
 	public StreamedContent getImg() throws Exception {
-        return new DefaultStreamedContent(new ByteArrayInputStream(this.img), "image/jpeg");
+        return new DefaultStreamedContent(new ByteArrayInputStream(this.customization.getImg()), "image/jpeg");
     }  
 	
-    public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
+    public AppCustomization getCustomization() {
+		return this.customization;
 	}
 
 	private static void generateQRCodeImage(OutputStream outputStream, String code, int width, int height) throws Exception {
