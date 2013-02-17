@@ -64,7 +64,7 @@ public class CustomizeAppBean implements Serializable {
 	
 	public StreamedContent getQrcode() throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		generateQRCodeImage(baos, this.creationResult.getLink(), 240, 240);
+		generateQRCodeImage(baos, this.creationResult.getLink(), 480, 480);
         return new DefaultStreamedContent(new ByteArrayInputStream(baos.toByteArray()), "image/png");
     }  
 	

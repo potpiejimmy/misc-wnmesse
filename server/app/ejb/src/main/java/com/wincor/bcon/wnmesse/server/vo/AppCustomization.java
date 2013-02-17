@@ -1,8 +1,11 @@
 package com.wincor.bcon.wnmesse.server.vo;
 
+import javax.validation.constraints.Size;
+
 public class AppCustomization {
 	private byte[] img;
 	private String color;
+    @Size(min = 1, max = 64)
 	private String name;
 	private String favfood;
 	public byte[] getImg() {

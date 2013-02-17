@@ -46,21 +46,23 @@
 						<h:panelGroup rendered="#{customizeAppBean.imgAvailable}">
 							<p:graphicImage value="#{customizeAppBean.img}" />
 							<p>
-								<h:outputText value="Ihr Name:"/>
-								<h:inputText value="#{customizeAppBean.customization.name}"/>
+								<h:outputText value="Ihr Name" /><br/>
+								<h:inputText value="#{customizeAppBean.customization.name}" size="32"/>
 							</p>
 							<p>
-						        <p:selectOneMenu value="#{customizeAppBean.customization.favfood}">  
-						            <f:selectItem itemLabel="Select One" itemValue="" />  
-						            <f:selectItem itemLabel="Spaghetti" itemValue="Spaghetti" />  
-						            <f:selectItem itemLabel="Steak" itemValue="Steak" />  
-						            <f:selectItem itemLabel="Schnitzel" itemValue="Schnitzel" />  
-						        </p:selectOneMenu>
+								<h:outputText value="Ihre Leibspeise" />
+								<p:selectOneMenu
+									value="#{customizeAppBean.customization.favfood}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItem itemLabel="Spaghetti Carbonara" itemValue="Spaghetti" />
+									<f:selectItem itemLabel="Steak" itemValue="Steak" />
+									<f:selectItem itemLabel="Schnitzel" itemValue="Schnitzel" />
+								</p:selectOneMenu>
 							</p>
 							<p>
 								<p:colorPicker id="colorpicker"
 									value="#{customizeAppBean.customization.color}" />
-								<p:commandButton value="Submit" ajax="false" />
+								<p:commandButton value="Farbe" ajax="false" />
 							</p>
 						</h:panelGroup>
 					</p:outputPanel>
@@ -69,30 +71,46 @@
 			</p:tab>
 
 			<p:tab id="development" title="Entwicklung">
-				<p:panel header="Ihre App wird erstellt">
+				<p:panel header="Ihre App wird erstellt" style="text-align:center">
 
 					<h:messages errorClass="error" />
 
+					<p:commandButton value="App zubereiten"
+						widgetVar="saveButton" onclick="saveButton.disable()" 
+						action="#{customizeAppBean.createApp}" update="devUpPanel"/>
 
+					<p:outputPanel id="devUpPanel">
+						<h:inputTextarea cols="160" rows="10" value="#{customizeAppBean.creationResult.output}"
+							rendered="#{customizeAppBean.creationResult ne null}"/>
+					</p:outputPanel>
+					
+					<p:ajaxStatus id="ajaxStatusPanel">
+						<f:facet name="start">
+							<h:graphicImage value="webres/img/cooking_anim.gif" />
+						</f:facet>
+
+						<f:facet name="complete">
+							<h:outputText value=""/>
+						</f:facet>
+					</p:ajaxStatus>
 
 				</p:panel>
 			</p:tab>
 
 			<p:tab id="done" title="Test">
-				<p:panel header="Applikation erstellen">
+				<p:panel header="Ihre App ist fertig" style="text-align:center">
 
 					<h:messages errorClass="error" />
 
-					<p:commandButton value="Create application"
-						action="#{customizeAppBean.createApp}" ajax="false" />
-
 					<h:panelGroup rendered="#{customizeAppBean.creationResult ne null}">
-						<h3>QR code on-the-fly</h3>
-						<p:graphicImage value="#{customizeAppBean.qrcode}" />
-
-						<h:outputLink value="#{customizeAppBean.creationResult.link}">
-							<h:outputText value="#{customizeAppBean.creationResult.link}" />
-						</h:outputLink>
+						<p>
+							<p:graphicImage value="#{customizeAppBean.qrcode}" />
+						</p>
+						<p>
+							<h:outputLink value="#{customizeAppBean.creationResult.link}">
+								<h:outputText value="#{customizeAppBean.creationResult.link}" />
+							</h:outputLink>
+						</p>
 					</h:panelGroup>
 
 				</p:panel>
